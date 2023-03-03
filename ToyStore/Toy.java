@@ -17,9 +17,12 @@ public class Toy {
         this.weight = weight;
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
     @Override
     public String toString() {
         return "Toy [id=" + id + ", name=" + name + ", weight=" + weight + "]";
     }
-
 }

@@ -1,19 +1,35 @@
 package ToyStore;
 
-import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class ToyStore {
-    List<Toy> toys = new ArrayList<Toy>();
-    int count;
+    private List<Toy> toys;
 
     public ToyStore(List<Toy> toys) {
         this.toys = toys;
-        this.count = toys.size();
+    }
+    
+    public Toy getToyForPrice() {
+        RandomToyChooser random = new RandomToyChooser();
+        Toy toy = random.chooseOnWeight(toys);
+        return toy;
     }
 
-    
+    public void saveToyForLottery() {
+        Toy toy = getToyForPrice();
+        String text = toy.toString();
+        try(FileWriter writer = new FileWriter("toy-store/ToyStore/Toys.txt", true))
+        { 
+            writer.write(text);
+            writer.append('\n');
+            writer.flush();
+        }
+        catch (IOException ex) {
 
-    
-
+            System.out.println(ex.getMessage());
+        }
+        toys.remove(toy);
+    }
 }
